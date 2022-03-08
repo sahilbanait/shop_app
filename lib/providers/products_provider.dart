@@ -26,7 +26,22 @@ class Products with ChangeNotifier {
             'https://cdn.pixabay.com/photo/2022/02/25/08/13/blood-oranges-7033738_960_720.jpg'),
   ];
 
-  List<Product> get items => [..._items];
+  var _showFavOnly = false;
+
+  List<Product> get items {
+    if (_showFavOnly) {
+      return _items.where((prodItem) => prodItem.isFavourate).toList();
+    }
+    return [..._items];
+  }
+  void showFavouriteOnly(){
+    _showFavOnly = true;
+    notifyListeners();
+  }
+  void showAll(){
+    _showFavOnly = false;
+    notifyListeners();
+  }
 
   Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
