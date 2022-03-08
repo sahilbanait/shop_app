@@ -18,21 +18,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: ( context) => Products(),
+      create: (context) => Products(),
       child: MaterialApp(
         theme: ThemeData(
             primarySwatch: Colors.purple,
             accentColor: Colors.deepOrange,
-            fontFamily: 'RobotoMono'
-        ),
+            fontFamily: 'RobotoMono'),
         routes: {
-          ProductDetail.rountName:(context) => ProductDetail(),
+          ProductDetail.rountName: (context) => ProductDetail(),
         },
         debugShowCheckedModeBanner: false,
-        home:ProductOverviewScreen(),
+        home: ProductOverviewScreen(),
       ),
     );
-
   }
 }
-
