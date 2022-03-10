@@ -42,7 +42,9 @@ class Products with ChangeNotifier {
     _showFavOnly = false;
     notifyListeners();
   }
-
+  List<Product> get favouriteItem{
+    return _items.where((prodItem) => prodItem.isFavourate).toList();
+  }
   Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }

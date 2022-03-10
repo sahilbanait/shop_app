@@ -1,44 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shop_app/providers/products_provider.dart';
 import '../widgets/product_grid.dart';
 
 enum FilterOptions { Favourites, All }
 
-class ProductOverviewScreen extends StatelessWidget {
+class ProductOverviewScreen extends StatefulWidget {
+  @override
+  _ProductOverViewScreenState createState() => _ProductOverViewScreenState();
+}
 
+class _ProductOverViewScreenState extends State<ProductOverviewScreen> {
+
+  var _showOnlyFav ;
   @override
   Widget build(BuildContext context) {
-
-    final productsContainer = Provider.of<Products>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shop App'),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
-              if (selectedValue == FilterOptions.Favourites) {
-                  productsContainer.showFavouriteOnly();
+              setState(() {
+                if (selectedValue == FilterOptions.Favourites) {
+                  _showOnlyFav =true;
+                } else {
+                  _showOnlyFav =false;
+                }
+              });
 
-              }else {
-                productsContainer.showAll();
-              }
             },
             itemBuilder: (_) => [
-              PopupMenuItem(
+              const PopupMenuItem(
                 child: Text('Only Favourite'),
                 value: FilterOptions.Favourites,
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
                 child: Text('Show All'),
                 value: FilterOptions.All,
               ),
             ],
             icon: Icon(Icons.more_vert),
-          )
+          ),
+
         ],
       ),
-      body: ProductGrid(),
+      body: ProductGrid(_showOnlyFav),
     );
   }
 }
